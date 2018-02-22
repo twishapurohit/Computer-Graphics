@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Midpoint Algorithm </title>
+	<style>
+		#myCanvas {
+		border: 5px solid black;
+		background-color:#ffffb3;
+		position: absolute;
+		top:260px;
+		bottom:0px;
+		left:0px ;
+		right:0px;
+		margin:auto;
+		}
+		
+		h1 {
+		color:#000066;
+		text-align: center;}
+		
+		form {
+		font-size:100%;
+		color:#000066;
+		text-align:center
+		}
+		
+		
+		.button {
+		background-color: #33cc33;
+		border: none;
+		border-radius: 12px;
+		color: white;
+		padding: 15px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		}
+		
+		.button1:hover {
+		background-color: #009933;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+		
+		.button2:hover {
+		background-color: #ff1a1a;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+	</style>
+	</head>
+
+<body style="background-color:#66ffb3;">
+<h1> Midpoint Algorithm </h1>
+
+<form>
+<fieldset>
+
+	<input type="button" class="button button1" value="Line" onclick="selectLine()">
+	<input type="button" class="button button1" value="Circle" onclick="selectCircle()">
+	<input type="button" class="button button1" value="Ellipse" onclick="selectEllipse()">
+	<br><br>
+	<input type="button" class="button button2" value="Clear" onclick="clr()">
+				
+</fieldset>
+</form>
+
+<canvas id="myCanvas" width="1000px" height="400px">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var Startingpoint = true;
+
+function selectLine(){
+	c.addEventListener("mousedown", drawLine, false);
+}
+
+function selectCircle(){
+	c.addEventListener("mousedown", drawCircle, false);
+}
+
+function selectEllipse(){
+	c.addEventListener("mousedown", drawEllipse, false);
+}
+
+function distance(a1, a2, a3, a4){
+   dx = a1 - a3;
+   dx *= dx;
+   dy = a4 - a2;
+   dy *= dy;
+   return Math.sqrt(dx + dy);
+}
+
+var drawLine = function(event){
+	if (Startingpoint){
+		linex0 = event.x;
+		liney0 = event.y;
+		
+		linex0 -= c.offsetLeft; 		
+		liney0 -= c.offsetTop;
+		Startingpoint = false;
+	}
+	else if (!Startingpoint){
+		linex1 = event.x;
+		liney1 = event.y;
+		linex1 -= c.offsetLeft;
+		liney1 -= c.offsetTop;
+	}
+	if(linex1 != null && liney1 != null){
+		ctx.clearRect(0, 0, 1000, 300);
+		dLine(linex0, liney0, linex1, liney1);
+	}
+}
+
+var drawCircle = function(event){
+    if (Startingpoint){
+    	circlex0 = event.x;
+	    circley0 = event.y;
+	    circlex0 -= c.offsetLeft;
+	    circley0 -= c.offsetTop;
+	    Startingpoint = false;
+	}
+	else if (!Startingpoint){
+		ctx.clearRect(0, 0, 1000, 300);
+		circlex1 = event.x;
+		circley1 = event.y;
+		circlex1 -= c.offsetLeft;
+		circley1 -= c.offsetTop;
+			
+		dCircle(circlex0, circley0, distance(circlex0, circley0, circlex1, circley1));
+	}
+}
+
+var drawEllipse = function(event){
+	if (Startingpoint){
+	     elipx0 = event.x;
+	    elipy0 = event.y;
+	    elipx0 -= c.offsetLeft;
+	    elipy0 -= c.offsetTop;
+	     Startingpoint = false;
+	}
+	  else if (!Startingpoint){
+		  	ctx.clearRect(0, 0, 1000, 300);
+		  	elipx1 = event.x;
+			elipy1 = event.y;
+			elipx1 -= c.offsetLeft;
+			elipy1 -= c.offsetTop;
+			dEllipse(elipx0, elipy0, distance(elipx0, elipy0, elipx1, elipy0), distance(elipx1, elipy0, elipx1, elipy1));
+	  }
+}
+
+var clr = function(){
+	location.reload(true);
+}
+
+</script> 
+
+<script>
+
+var dLine = function(x0, y0, x1, y1) {
+    var dx = Math.abs(x1 - x0);
+    var dy = Math.abs(y1 - y0);
+    var sx = (x0 < x1) ? 1 : -1;
+    var sy = (y0 < y1) ? 1 : -1;
+    var error = dx - dy;
+    while(!((x0 == x1) && (y0 == y1))){
+      	var s2 = error << 1;
+      	if (s2 > -dy) {
+        	error -= dy;
+        	x0 += sx;
+        }
+        if (s2 < dx) {
+        	error += dx;
+        	y0 += sy;
+        }
+        ctx.fillRect(x0, y0, 1, 1);
+    }
+}
+
+var dCircle = function(x0, y0, r){
+  	var x = r;
+  	var y = 0;
+  	var error = 1 - x;
+ 
+  	while(x >= y){
+
+    	ctx.fillRect(x + x0, y + y0, 1, 1);
+    	ctx.fillRect(y + x0, x + y0, 1, 1);
+    	ctx.fillRect(-x + x0, y + y0, 1, 1);
+    	ctx.fillRect(-y + x0, x + y0, 1, 1);
+    	ctx.fillRect(-x + x0, -y + y0, 1, 1);
+    	ctx.fillRect(-y + x0, -x + y0, 1, 1);
+    	ctx.fillRect(x + x0, -y + y0, 1, 1);
+    	ctx.fillRect(y + x0, -x + y0, 1, 1);
+    	y++;
+    	if (error<0){
+      		error += 2 * y + 1;
+      	}
+      	else {
+      		x--;
+      		error += 2 * (y - x) + 1;
+      	}
+    }
+}
+
+var dEllipse = function(xz, yz, a, b){
+   	var x = -a;
+   	var y = 0;
+    var a2 = a * a;
+    var b2 = b * b;
+    var s2 = b;
+    dx = (1 + 2 * x) * s2 * s2;
+    dy = x * x;
+    error = dx + dy;
+ 
+    while (x <= 0){ 
+    	ctx.fillRect(xz - x, yz + y, 1, 1);
+        ctx.fillRect(xz + x, yz + y, 1, 1);
+        ctx.fillRect(xz + x, yz - y, 1, 1);
+        ctx.fillRect(xz - x, yz - y, 1, 1);
+ 
+        s2 = 2 * error;
+        if (s2 >= dx){
+        	x++;
+        	error += dx += 2 * b2;
+        }
+        if (s2 <= dy){
+        	y++;
+        	error += dy += 2 * a2;
+        }
+    }
+        while (y++ < b) {
+        ctx.fillRect(xz, yz + y, 1, 1);
+        ctx.fillRect(xz, yz - y, 1, 1);
+    }
+}
+var isEmpty=function isCanvasBlank(c) {
+    var blank = document.createElement('c');
+    blank.width = c.width;
+    blank.height = c.height;
+
+    return c.toDataURL() == blank.toDataURL();
+}
+
+</script>
+
+</body>
+</html>
