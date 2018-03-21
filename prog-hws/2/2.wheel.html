@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Wheel </title>
+	<style>
+		#myCanvas {
+		border: 5px solid black;
+		background-color:#ffffb3;
+		 padding-left: 0;
+		padding-right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		}
+		
+		h1 {
+		color:#000066;
+		text-align: center;}
+		
+		form {
+		font-size:100%;
+		color:#000066;
+		text-align:center
+		}
+		
+		.button {
+		background-color: #33cc33;
+		border: none;
+		border-radius: 12px;
+		color: white;
+		padding: 15px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		}
+		
+		.button1:hover {
+		background-color: #009933;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+		
+		.button2:hover {
+		background-color: #ff1a1a;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+	</style>
+	</head>
+
+<body style="background-color:#66ffb3;">
+<h1> Wheel Shape </h1>
+
+<form>
+<fieldset>
+  <b> X: </b> <input type="text" id="X" >
+  <b> Y: </b> <input type="text" id="Y"><br><br>
+  <b> Enter radius of  wheel:</b> <input type="text" id="rad" ><br>
+  <b> Enter score of driver(Score should be less than 4): </b> <input type="text" id="score">
+  <br>
+  <b> Choose a border color: </b>
+  <br>
+	<input type="radio" id="c1" name="color" value="#000000" checked><b>Black
+	<input type="radio" id="c2" name="color" value="#ff0000">Red
+	<input type="radio" id="c3" name="color" value="#0033cc">Blue
+	<input type="radio" id="c4" name="color" value="#ffff00">Yellow
+	<input type="radio" id="c5" name="color" value="#00ff00">Green
+	<input type="radio" id="c6" name="color" value="#ff6600">Orange
+	<input type="radio" id="c7" name="color" value="#994d00">Brown</b>
+	<br>
+	</fieldset>
+	
+	<input type="button" class="button button1" value="Draw" onclick="wheel()">
+	<input type="button" class="button button2" value="Clear" onclick="clr()">
+				
+
+  </form>
+
+<canvas id="myCanvas" width="1200px" height="500px">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+function wheel() {
+
+var x=document.getElementById("X").value;
+var y=document.getElementById("Y").value;
+var r=document.getElementById("rad").value;
+var s=document.getElementById("score").value;
+var col;
+
+if (document.getElementById('c1').checked) {
+  col = document.getElementById('c1').value;
+}
+else if(document.getElementById('c2').checked) {
+  col = document.getElementById('c2').value;
+}
+else if(document.getElementById('c3').checked) {
+  col = document.getElementById('c3').value;
+}
+else if(document.getElementById('c4').checked) {
+  col = document.getElementById('c4').value;
+}
+else if(document.getElementById('c5').checked) {
+  col = document.getElementById('c5').value;
+}
+else if(document.getElementById('c6').checked) {
+  col = document.getElementById('c6').value;
+}
+else {
+  col = document.getElementById('c7').value;
+}
+
+if (s == 100)
+{
+ctx.strokeStyle=col;
+ctx.beginPath();
+ctx.arc(x,y,r,0,2*Math.PI);
+ctx.stroke();
+}
+else if (s<100 && s>=80)
+{
+	var z=100-s;
+	var r2=r-((z*r)/100);
+	ctx.strokeStyle=col;
+	ctx.beginPath();
+	ctx.ellipse(x,y,r,r2,0,0,2*Math.PI);
+	ctx.stroke();
+}
+
+else if (s<80 && s>=4)
+{
+	var num_of_sides = s;
+	var xCen = parseInt(x);
+	var yCen = parseInt(y);
+	
+	ctx.beginPath();
+	ctx.moveTo (xCen + r * Math.cos(2 * Math.PI * 0 / num_of_sides), yCen + r * Math.sin(2 * Math.PI * 0 / num_of_sides));          
+ 
+for (var i = 1; i <= num_of_sides; i++) {
+    ctx.lineTo (xCen + r * Math.cos(i * 2 * Math.PI / num_of_sides), yCen + r * Math.sin(i * 2 * Math.PI / num_of_sides));
+}
+
+ctx.strokeStyle=col;
+ctx.lineWidth=5;
+ctx.stroke();
+}
+
+
+}
+
+
+function clr() {
+location.reload(true);
+}
+
+
+</script> 
+
+</body>
+</html>

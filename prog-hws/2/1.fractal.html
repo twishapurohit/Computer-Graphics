@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Fractal </title>
+	<style>
+		#myCanvas {
+		border: 5px solid black;
+		background-color:#ffffb3;
+		 padding-left: 0;
+		padding-right: 0;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		}
+		
+		h1 {
+		color:#000066;
+		text-align: center;}
+		
+		form {
+		font-size:100%;
+		color:#000066;
+		text-align:center
+		}
+		
+		.button {
+		background-color: #33cc33;
+		border: none;
+		border-radius: 12px;
+		color: white;
+		padding: 15px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		}
+		
+		.button1:hover {
+		background-color: #009933;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+		
+		.button2:hover {
+		background-color: #ff1a1a;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+	</style>
+	</head>
+
+<body style="background-color:#66ffb3;">
+<h1> Fractal </h1>
+
+<form>
+<fieldset>
+  <b> Choose a primitive: </b><br>
+	<input type="radio" id="s1" name="prim" checked><b>Triangle
+	<input type="radio" id="s2" name="prim" >Line
+	
+	<br>
+	<b> Choose a ratio: </b><br>
+	<input type="radio" id="r1" name="ratio" checked><b>1/2
+	<input type="radio" id="r2" name="ratio" ><b>1/3
+	<input type="radio" id="r3" name="ratio" >1/4
+
+	<br>
+	
+  <b> Enter number of iterations:</b> <input type="text" id="it" >
+  <br>
+  <b> Choose a border color: </b>
+  <br>
+	<input type="radio" id="c1" name="color" value="#000000" checked><b>Black
+	<input type="radio" id="c2" name="color" value="#ff0000">Red
+	<input type="radio" id="c3" name="color" value="#0033cc">Blue
+	<input type="radio" id="c4" name="color" value="#ffff00">Yellow
+	<input type="radio" id="c5" name="color" value="#00ff00">Green
+	<input type="radio" id="c6" name="color" value="#ff6600">Orange
+	<input type="radio" id="c7" name="color" value="#994d00">Brown</b>
+	<br>
+	</fieldset>
+	
+	<input type="button" class="button button1" value="Draw" onclick="draw()">
+	<input type="button" class="button button2" value="Clear" onclick="clr()">
+				
+
+  </form>
+
+<canvas id="myCanvas" width="1500px" height="800px">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+width= ctx.width= window.innerWidth;
+height=ctx.height = window.innerHeight;
+
+function draw() {
+
+var itr=document.getElementById("it").value;
+var shape;
+var col;
+var r;
+
+if (document.getElementById('s1').checked) {
+  shape = 0;
+}
+else {
+  shape = 1;
+}
+
+
+if (document.getElementById('r1').checked) {
+  r = 2;
+}
+else if (document.getElementById('r2').checked) {
+  r = 3;
+}
+else {
+  r = 4;
+}
+
+if (document.getElementById('c1').checked) {
+  col = document.getElementById('c1').value;
+}
+else if(document.getElementById('c2').checked) {
+  col = document.getElementById('c2').value;
+}
+else if(document.getElementById('c3').checked) {
+  col = document.getElementById('c3').value;
+}
+else if(document.getElementById('c4').checked) {
+  col = document.getElementById('c4').value;
+}
+else if(document.getElementById('c5').checked) {
+  col = document.getElementById('c5').value;
+}
+else if(document.getElementById('c6').checked) {
+  col = document.getElementById('c6').value;
+}
+else {
+  col = document.getElementById('c7').value;
+}
+
+
+if (shape==0)
+{
+ctx.translate(width/2, height/2);
+var p0 = {
+     x: 0,
+     y: -200
+},
+p1 = { 
+     x: 250,
+     y: 160
+},
+p2 = { 
+     x: -250,
+     y: 160
+};
+
+koch(p0,p1,r,itr);
+koch(p1,p2,r,itr);
+koch(p2,p0,r,itr);
+
+function koch(p0,p1,r,itr)
+{
+
+if(itr==0){
+ctx.beginPath();
+ctx.moveTo(p0.x,p0.y);
+ctx.lineTo(p1.x,p1.y);
+ctx.strokeStyle=col;
+ctx.lineWidth=5;
+ctx.stroke();
+
+}
+else if(r==2){alert("for triangle ratio has to be 1/3 or 1/4");}
+
+else{
+
+var dx = parseInt(p1.x - p0.x),
+	dy= parseInt(p1.y-p0.y),
+	dist = parseInt(Math.sqrt( dx * dx + dy* dy)),
+	unit = parseInt(dist /r) ,
+	angle = Math.atan2(dy,dx),
+pA= { 
+   x: parseInt(p0.x + dx/r),
+   y: parseInt(p0.y + dy/r)
+    },
+pC= {
+   x: parseInt(p1.x - dx/r),
+   y:parseInt(p1.y - dy/r)
+},
+
+pB= {
+    x:  parseInt(pA.x + Math.cos(angle - Math.PI / r) * unit),
+    y: parseInt(pA.y + Math.sin(angle - Math.PI / r ) * unit)
+
+}; 
+
+
+if(itr > 1){
+	koch(p0,pA,r,itr-1)
+	koch(pA,pB,r,itr-1)
+	koch(pB,pC,r,itr-1)
+	koch(pC,p1,r,itr-1)
+}
+
+else
+{
+	ctx.beginPath();
+ctx.moveTo(p0.x,p0.y);
+ctx.lineTo(pA.x,pA.y);
+ctx.lineTo(pB.x,pB.y);
+ctx.lineTo(pC.x,pC.y);
+ctx.lineTo(p1.x,p1.y);
+ctx.lineWidth=5;
+ctx.strokeStyle=col;
+ctx.stroke();
+} 
+
+}
+
+}
+}
+
+else if(shape==1)
+{
+var p0 = {
+     x:60,
+     y: height * .80
+},
+p1 = { 
+     x:width - 60,
+     y: height * .80
+};
+
+koch(p0,p1,r,itr);
+function koch(p0,p1,r,itr)
+{
+if(itr==0)
+{
+ctx.beginPath();
+ctx.moveTo(p0.x,p0.y);
+ctx.lineTo(p1.x,p1.y);
+ctx.lineWidth=5;
+ctx.strokeStyle=col;
+ctx.stroke();
+}
+
+else if(r==2)
+{
+
+var X1 = 0;
+var X2 = 0;
+var a = [];
+
+var d = linef(50,130,200,130, 0);
+    Fractal1(d, itr);
+
+function koch1(x,y,lineLength,deg){
+    deg = (deg-360)%360
+    X1 = x+lineLength *Math.cos(deg *Math.PI/180);
+    Y1 = y+lineLength *Math.sin(deg *Math.PI/180);
+    a.push(linef(x,y+100,X1,Y1+100,deg))
+   
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    ctx.lineTo(X1,Y1);
+    ctx.lineWidth=5;
+    ctx.strokeStyle=col;
+    ctx.stroke();
+}
+function linef(x1,y1,x2,y2,degrees){
+    var obj = {};
+    obj.x1 = x1
+    obj.x2 = x2
+    obj.y1 = y1
+    obj.y2 = y2
+    obj.degrees = degrees
+
+    return obj;
+}
+
+function Fractal1(lineObj, itr){
+
+    var len = 0;
+    for(var j=0; j<itr; j++){
+        len = len+Math.pow(4,j)
+    }
+
+    a.push(lineObj);
+
+    for(var i = 0; i<len; i++){
+        fractal(a[i]);
+    }
+
+    function fractal(obj){
+        x1 = obj.x1
+        y1 = obj.y1
+        x2 = obj.x2
+        y2 = obj.y2
+        degrees = obj.degrees
+    
+        var dx = Math.pow ((x1-x2),2),
+        dy = Math.pow ((y1-y2),2),
+        dist = Math.sqrt(dx+dy),
+        lineLength = dist/2;    
+        
+        koch1(x1,y1,lineLength,degrees+60);   
+        koch1(X1,Y1,lineLength,degrees-60,);
+        koch1(X1,Y1,lineLength,degrees-60);
+        koch1(X1,Y1,lineLength,degrees+60);        
+    }
+
+}
+
+}
+
+else if(r > 2){
+var dx = parseInt(p1.x - p0.x),
+dy= parseInt(p1.y-p0.y),
+dist = parseInt(Math.sqrt( dx * dx + dy* dy)),
+unit = parseInt(dist /r) ,
+angle = Math.atan2(dy,dx),
+pA= { 
+   x: parseInt(p0.x + dx/r),
+   y: parseInt(p0.y + dy/r)
+    },
+pC= {
+   x:parseInt(p1.x - dx/r),
+   y:parseInt(p1.y - dy/r)
+},
+
+pB= {
+    x: parseInt(pA.x + Math.cos(angle - Math.PI / r) * unit),
+    y: parseInt(pA.y + Math.sin(angle - Math.PI / r ) * unit)
+
+}; 
+
+
+if(itr > 1){
+koch(p0,pA,r,itr-1)
+koch(pA,pB,r,itr-1)
+koch(pB,pC,r,itr-1)
+koch(pC,p1,r,itr-1)
+}
+
+else
+{
+ctx.beginPath();
+ctx.moveTo(p0.x,p0.y);
+ctx.lineTo(pA.x,pA.y);
+ctx.lineTo(pB.x,pB.y);
+ctx.lineTo(pC.x,pC.y);
+ctx.lineTo(p1.x,p1.y);
+ctx.lineWidth=5;
+ctx.strokeStyle=col;
+ctx.stroke();
+} 
+
+}
+
+}
+
+}
+
+
+
+
+
+
+}
+
+
+function clr() {
+location.reload(true);
+}
+
+
+</script> 
+
+</body>
+</html>
