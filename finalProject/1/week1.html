@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+  My House 
+  </title>
+  <style>
+* {
+    box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 300px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.button {
+		background-color: #33cc33;
+		border: none;
+		border-radius: 12px;
+		color: white;
+		padding: 15px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		margin: 4px 2px;
+		cursor: pointer;
+		}
+		
+		.button1:hover {
+		background-color: #009933;
+		box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+		} 
+</style>
+
+</head>
+
+<body style="background-color:#66ffb3;">
+
+<h1 style="font-size:300%;color:black;text-align:center;"> Dream House</h1>
+
+<div class="row">
+  <div class="column" >
+    <h2>Front view</h2>
+   		
+<svg width="1000" height="300">
+	<line x1="185" y1="50" x2="185" y2="101" style="stroke:yellow;stroke-width:3" />
+	<line x1="210" y1="50" x2="210" y2="125" style="stroke:yellow;stroke-width:3" />
+	<line x1="212" y1="50" x2="183" y2="50" style="stroke:yellow;stroke-width:3" />
+	
+	<line x1="100" y1="132" x2="100" y2="250" style="stroke:yellow;stroke-width:3" />
+	<line x1="221" y1="252" x2="98" y2="252" style="stroke:yellow;stroke-width:3" />
+	<line x1="219" y1="132" x2="219" y2="252" style="stroke:yellow;stroke-width:3" />
+	<line x1="163" y1="82" x2="240" y2="150" style="stroke:yellow;stroke-width:3" />
+	<line x1="165" y1="82" x2="82" y2="150" style="stroke:yellow;stroke-width:3" />
+
+<rect x="116" y="134" width="30" height="37"
+style="fill:red;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+<rect x="174" y="134" width="30" height="37"
+style="fill:red;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+  
+
+<circle cx="131" cy="153" r="13" stroke="black" stroke-width="1" fill="blue" />
+<circle cx="135" cy="157" r="7" stroke="black" stroke-width="2" fill="black" />
+   
+<circle cx="189" cy="153" r="13" stroke="black" stroke-width="1" fill="blue" />
+<circle cx="193" cy="157" r="7" stroke="black" stroke-width="2" fill="black" />
+	
+<path d="M 143 205 C 121 235, 195 241, 182 205" stroke-width="2" stroke="yellow" fill="transparent"/>
+<line x1="143" y1="205" x2="182" y2="205" style="stroke:yellow;stroke-width:2" />
+
+</svg>
+
+
+<h3>Front view Transformations</h3>
+
+<svg id="front" width="1000" height="280">
+	<line x1="185" y1="50" x2="185" y2="101" style="stroke:yellow;stroke-width:3" />
+	<line x1="210" y1="50" x2="210" y2="125" style="stroke:yellow;stroke-width:3" />
+	<line x1="212" y1="50" x2="183" y2="50" style="stroke:yellow;stroke-width:3" />
+	
+	<line x1="100" y1="132" x2="100" y2="250" style="stroke:yellow;stroke-width:3" />
+	<line x1="221" y1="252" x2="98" y2="252" style="stroke:yellow;stroke-width:3" />
+	<line x1="219" y1="132" x2="219" y2="252" style="stroke:yellow;stroke-width:3" />
+	<line x1="163" y1="82" x2="240" y2="150" style="stroke:yellow;stroke-width:3" />
+	<line x1="165" y1="82" x2="82" y2="150" style="stroke:yellow;stroke-width:3" />
+<rect x="116" y="134" width="30" height="37"
+style="fill:red;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+<rect x="174" y="134" width="30" height="37"
+style="fill:red;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+  
+
+<circle cx="131" cy="153" r="13" stroke="black" stroke-width="1" fill="blue" />
+<circle cx="135" cy="157" r="7" stroke="black" stroke-width="2" fill="black" />
+   
+<circle cx="189" cy="153" r="13" stroke="black" stroke-width="1" fill="blue" />
+<circle cx="193" cy="157" r="7" stroke="black" stroke-width="2" fill="black" />
+	
+<path d="M 143 205 C 121 235, 195 241, 182 205" stroke-width="2" stroke="yellow" fill="transparent"/>
+<line x1="143" y1="205" x2="182" y2="205" style="stroke:yellow;stroke-width:2" />
+
+</svg>
+ 
+<h3 style="color:red;">Click Button:</h3>
+<text style="float:left">Translate : <input type="range" id="trans" min="100" max="400"value="100" onchange="funcfronttrans(this.value)"></text>
+<text style="float:right">Value : <input id="ftrans" type="text" name="fname" value="100"></text><br><br>
+<text style="float:left">Rotate : <input type="range" id="trans"  min="0" max="360"value="0" onchange="funcfrontrot(this.value)"></text>
+<text style="float:right">Value : <input id="frot" type="text" name="fname" value="0 deg"></text><br><br>
+<text style="float:left">Scale : <input type="range" id="trans"  min="1" max="2" step='0.05' value="1" onchange="funcfrontscale(this.value)"></text>
+<text style="float:right">Value : <input id="fscale" type="text" name="fname" value="1"></text><br><br>
+<text style="float:left">Shear : <input type="range" id="trans"  min="0" max="360"value="0" onchange="funcfrontshear(this.value)"></text>
+<text style="float:right">Value : <input id="fskew" type="text" name="fname" value="0 deg"></text><br>
+</div>
+
+
+
+ <div class="column">
+    <h2>Side view</h2>
+
+<svg width="1000" height="300">
+<rect x="75" y="70" width="150" height="72"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+<rect x="100" y="142" width="100" height="110"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+<rect x="120" y="49" width="67" height="20"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+
+<rect x="120" y="159" width="30" height="37"
+style="fill:blue;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+<rect x="160" y="159" width="30" height="37"
+style="fill:blue;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+</svg>
+
+<h3>Side view transformation</h>
+<svg id="side" width="1000" height="300">
+<rect x="75" y="70" width="150" height="72"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+<rect x="100" y="142" width="100" height="110"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+<rect x="120" y="49" width="67" height="20"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.9" />
+
+<rect x="120" y="159" width="30" height="37"
+style="fill:blue;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+<rect x="160" y="159" width="30" height="37"
+style="fill:blue;stroke:black;stroke-width:3;fill-opacity:0.1;stroke-opacity:0.7" />
+</svg>
+
+<h3 style="color:red;">Click Button:</h3>
+<text style="float:left">Translate : <input type="range" id="trans" min="100" max="360"value="100" onchange="funcsidetrans(this.value)"></text>
+<text style="float:right">Value : <input id="strans" type="text" name="fname" value="100"></text><br><br>
+<text style="float:left">Rotate : <input type="range" id="trans"  min="0" max="360"value="0" onchange="funcsiderot(this.value)"></text>
+<text style="float:right">Value : <input id="srot" type="text" name="fname" value="0 deg"></text><br><br>
+<text style="float:left">Scale : <input type="range" id="rrans"  min="1" max="2" step='0.05' value="1" onchange="funcsidescale(this.value)"></text>
+<text style="float:right">Value : <input id="sscale" type="text" name="fname" value="1"></text><br><br>
+<text style="float:left">Shear : <input type="range" id="trans"  min="0" max="360"value="0" onchange="funcsideshear(this.value)"></text>
+<text style="float:right">Value : <input id="sskew" type="text" name="fname" value="0 deg"></text><br>
+  </div>
+  
+  <div class="column">
+    <h2>Top View</h2>
+ 
+  <svg width="1000" height="300">
+
+<rect x="80" y="80" width="173" height="133"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:1" />
+  
+<line x1="162" y1="80" x2="162" y2="212" style="stroke:yellow;stroke-width:3" />
+  
+<rect x="192" y="100" width="30" height="37"
+style="fill:blue;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:1" />
+  
+<path d="M10 20"/>
+</svg> 
+
+
+<h3>Top View transformation</h3>
+ 
+  <svg id="top" width="1000" height="300">
+
+<rect x="80" y="80" width="173" height="133"
+style="fill:white;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:1" />
+  
+<line x1="162" y1="80" x2="162" y2="212" style="stroke:yellow;stroke-width:3" />
+  
+<rect x="192" y="100" width="30" height="37"
+style="fill:blue;stroke:yellow;stroke-width:3;fill-opacity:0.1;stroke-opacity:1" />
+  
+<path d="M10 20"/>
+</svg> 
+
+<h3 style="color:red;">Click button:</h3>
+<text style="float:left">Translate : </span><input type="range" id="trans" min="100" max="400"value="100" onchange="functoptrans(this.value)"></text> 
+<text style="float:right">Value : </span><input id="ttrans" type="text" name="fname" value="100"></text><br><br>
+<text style="float:left">Rotate : <input type="range" id="trans"  min="0" max="360"value="0" onchange="functoprot(this.value)"></text>
+<text style="float:right">Value : <input id="trot" type="text" name="fname" value="0 deg"></text><br><br>
+<text style="float:left">Scale : <input type="range" id="trans" min="1" max="2" step='0.05' value="1" onchange="functopscale(this.value)"></text>
+<text style="float:right">Value : <input id="tscale" type="text" name="fname" value="1"></text><br><br>
+<text style="float:left">Shear : <input type="range" id="trans"  min="0" max="360"value="0" onchange="functopshear(this.value)"></text>
+<text style="float:right">Value : <input id="tskew" type="text" name="fname" value="0 deg"></text><br><br>
+
+
+</div>
+  </div>
+  
+  <script>
+//functions to perform 2D transformations on front view
+function funcfronttrans(value) {
+document.getElementById("ftrans").value=value;
+var x = value;
+var y="translate("+x+"px,0px)";
+document.getElementById("front").style.transform = y;
+}
+	
+function funcfrontrot(value) {
+var i=value+" deg";
+document.getElementById("frot").value=i;
+var x = value;
+var y="rotate("+x+"deg)";
+document.getElementById("front").style.transform = y;
+//document.getElementById("front").style.transform = "rotate(20deg)";
+}
+	
+function funcfrontscale(value) {
+document.getElementById("fscale").value=value;
+var x = value;
+var y="scale("+x+","+x+")";
+document.getElementById("front").style.transform = y;
+}
+	
+function funcfrontshear(value) {
+var i=value+" deg";
+document.getElementById("fskew").value=i;
+var x = value;
+var y="skewX("+x+"deg)";
+document.getElementById("front").style.transform = y;
+}
+	//functions to perform 2D transformations on side view
+function funcsidetrans(value) {
+document.getElementById("strans").value=value;
+var x = value;
+var y="translate("+x+"px,0px)";
+document.getElementById("side").style.transform = y;
+}
+	
+function funcsiderot(value) {
+var i=value+" deg";
+document.getElementById("srot").value=i;
+var x = value;
+var y="rotate("+x+"deg)";
+document.getElementById("side").style.transform = y;
+}
+	
+function funcsidescale(value) {
+document.getElementById("sscale").value=value;
+var x = value;
+var y="scale("+x+","+x+")";
+document.getElementById("side").style.transform = y;
+}
+	
+function funcsideshear(value) {
+var i=value+" deg";
+document.getElementById("sskew").value=i;
+var x = value;
+var y="skewX("+x+"deg)";
+document.getElementById("side").style.transform = y;
+}
+	
+//functions to perform 2D transformations on top view
+	
+function functoptrans(value) {
+document.getElementById("ttrans").value=value;
+var x = value;
+var y="translate("+x+"px,0px)";
+document.getElementById("top").style.transform = y;
+}
+	
+function functoprot(value) {
+var i=value+" deg";
+document.getElementById("trot").value=i;
+var x = value;
+var y="rotate("+x+"deg)";
+document.getElementById("top").style.transform = y;
+}
+	
+function functopscale(value) {
+document.getElementById("tscale").value=value;
+var x = value;
+var y="scale("+x+","+x+")";
+document.getElementById("top").style.transform = y;
+}
+	
+function functopshear(value) {
+var i=value+" deg";
+document.getElementById("tskew").value=i;
+var x = value;
+var y="skewX("+x+"deg)";
+document.getElementById("top").style.transform = y;
+}
+
+</script>
+
+</body>
+</html>
